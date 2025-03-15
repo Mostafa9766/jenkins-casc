@@ -1,0 +1,9 @@
+jenkins:
+  authorizationStrategy:
+    loggedInUsersCanDoAnything:
+      allowAnonymousRead: false
+  securityRealm:
+    local:
+      users:
+        - id: "gh_user"
+          password: "p@ssw0rd"
