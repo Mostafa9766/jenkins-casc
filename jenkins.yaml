@@ -1,7 +1,4 @@
 jenkins:
-  authorizationStrategy:
-    loggedInUsersCanDoAnything:
-      allowAnonymousRead: false
   securityRealm:
     local:
       users:
