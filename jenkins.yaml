@@ -28,28 +28,21 @@ jobs:
       pipelineJob('example-pipeline-job') {
       definition {
         cps {
-            script('''
-                pipeline {
-                    agent any
-                    stages {
-                        stage('Build') {
-                            steps {
-                                echo 'Building...'
-                            }
-                        }
-                        stage('Test') {
-                            steps {
-                                echo 'Testing...'
-                            }
-                        }
-                        stage('Deploy') {
-                            steps {
-                                echo 'Deploying...'
-                            }
+          script("""
+            pipeline {
+                agent any
+                stages {
+                    stage('Hello') {
+                        steps {
+                            echo 'Hello, Jenkins!'
+                            sh 'date'
                         }
                     }
                 }
-            ''')
             }
-          }
-        } 
+          """.stripIndent())
+          sandbox(true)
+        }
+      }
+    }
+
