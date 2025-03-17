@@ -6,25 +6,6 @@ jenkins:
           password: "p@ssw0rd"
 
 
-  # Authorization Strategy
-  authorizationStrategy:
-    projectMatrix:
-      entries:
-        - user:
-            name: admin
-            permissions:
-              - Overall/Administer
-        - user:
-            name: developer
-            permissions:
-              - Overall/Read
-              - Job/Build
-        - user:
-            name: viewer
-            permissions:
-              - Overall/Read
-
-
 
 # Tool Configuration
 tool:
