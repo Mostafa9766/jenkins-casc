@@ -114,8 +114,8 @@ jenkins:
   scmCheckoutRetryCount: 0
   securityRealm:
     github:
-      clientID: "${CLIENT_ID}"  # Uses environment variable
-      clientSecret: "${CLIENT_SECRET}"
+      clientID: "Iv23ctI3Gtw2Olhq83Yq"  # Uses environment variable
+      clientSecret: "b62273b26d449c10a74a285a6ac43d0baae7fa14"
       githubApiUri: "https://api.github.com"
       githubWebUri: "https://github.com"
       oauthScopes: "read:org,user:email,repo"
