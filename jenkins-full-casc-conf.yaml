@@ -1,0 +1,233 @@
+jenkins:
+  authorizationStrategy:
+    globalMatrix:
+      entries:
+      - group:
+          name: "authenticated"
+          permissions:
+          - "Overall/Administer"
+      - user:
+          name: "anonymous"
+          permissions:
+          - "Overall/Read"
+  clouds:
+  - kubernetes:
+      containerCap: 10
+      containerCapStr: "10"
+      jenkinsTunnel: "jenkins-3-agent.default.svc.cluster.local:50000"
+      jenkinsUrl: "http://jenkins-3.default.svc.cluster.local:8080"
+      name: "kubernetes"
+      namespace: "default"
+      podLabels:
+      - key: "jenkins/jenkins-3-jenkins-agent"
+        value: "true"
+      serverUrl: "https://kubernetes.default"
+      templates:
+      - containers:
+        - args: "^${computer.jnlpmac} ^${computer.name}"
+          envVars:
+          - envVar:
+              key: "JENKINS_URL"
+              value: "http://jenkins-3.default.svc.cluster.local:8080/"
+          image: "jenkins/inbound-agent:3273.v4cfe589b_fd83-1"
+          name: "jnlp"
+          resourceLimitCpu: "1"
+          resourceLimitMemory: "2Gi"
+          resourceRequestCpu: "500m"
+          resourceRequestMemory: "1Gi"
+          workingDir: "/home/jenkins/agent"
+        id: "ad904d9e2fbd47b037b3bbddcbe779e2fcc8576e0468b7687b73c4b7fd210ed1"
+        label: "jenkins-3-jenkins-agent"
+        name: "default"
+        namespace: "default"
+        nodeUsageMode: NORMAL
+        podRetention: "never"
+        serviceAccount: "jenkins-3-agent"
+        slaveConnectTimeout: 100
+        slaveConnectTimeoutStr: "100"
+        yamlMergeStrategy: "override"
+      - containers:
+        - args: "cat"
+          command: "/bin/sh -c"
+          image: "maven:3.6.3-jdk-8"
+          name: "maven-java8"
+          privileged: true
+          resourceLimitCpu: "1024m"
+          resourceLimitMemory: "1024Mi"
+          resourceRequestCpu: "512m"
+          resourceRequestMemory: "512Mi"
+          ttyEnabled: true
+        - args: "cat"
+          command: "/bin/sh -c"
+          image: "maven:3.8.6-jdk-21"
+          name: "maven-java21"
+          privileged: true
+          resourceLimitCpu: "1024m"
+          resourceLimitMemory: "1024Mi"
+          resourceRequestCpu: "512m"
+          resourceRequestMemory: "512Mi"
+          ttyEnabled: true
+        - args: "cat"
+          command: "/bin/sh -c"
+          image: "alpine/git"
+          name: "git"
+          privileged: true
+          resourceLimitCpu: "1024m"
+          resourceLimitMemory: "1024Mi"
+          resourceRequestCpu: "512m"
+          resourceRequestMemory: "512Mi"
+          ttyEnabled: true
+        id: "9b499261-35ff-4641-ad2b-e06fe92bfbea"
+        label: "jenkins-backend"
+        name: "backend"
+        serviceAccount: "jenkins"
+  crumbIssuer:
+    standard:
+      excludeClientIPFromCrumb: true
+  disableRememberMe: false
+  labelAtoms:
+  - name: "built-in"
+  - name: "jenkins-3-jenkins-agent"
+  - name: "jenkins-backend"
+  markupFormatter: "plainText"
+  mode: NORMAL
+  myViewsTabBar: "standard"
+  nodeMonitors:
+  - "architecture"
+  - "clock"
+  - diskSpace:
+      freeSpaceThreshold: "1GiB"
+      freeSpaceWarningThreshold: "2GiB"
+  - "swapSpace"
+  - tmpSpace:
+      freeSpaceThreshold: "1GiB"
+      freeSpaceWarningThreshold: "2GiB"
+  - "responseTime"
+  numExecutors: 0
+  primaryView:
+    all:
+      name: "all"
+  projectNamingStrategy: "standard"
+  quietPeriod: 5
+  remotingSecurity:
+    enabled: true
+  scmCheckoutRetryCount: 0
+  securityRealm:
+    github:
+      clientID: "Iv23ctI3Gtw2Olhq83Yq"
+      clientSecret: "{AQAAABAAAAAwuuBfN9M/uTG3okB2YyWCPln9npMKC4O5FX7JEcb3chJtUX2i0FX/8Usu5OocAixw1qsvADCss/QfN2IDrmWcsQ==}"
+      githubApiUri: "https://api.github.com"
+      githubWebUri: "https://github.com"
+      oauthScopes: "read:org,user:email,repo"
+  slaveAgentPort: 50000
+  systemMessage: "Welcome to M-PESA CI server. This Jenkins is managed by UNICORN\
+    \ team \n\n"
+  updateCenter:
+    sites:
+    - id: "default"
+      url: "https://updates.jenkins.io/update-center.json"
+  views:
+  - all:
+      name: "all"
+  viewsTabBar: "standard"
+globalCredentialsConfiguration:
+  configuration:
+    providerFilter: "none"
+    typeFilter: "none"
+appearance:
+  prism:
+    theme: PRISM
+security:
+  apiToken:
+    creationOfLegacyTokenEnabled: false
+    tokenGenerationOnCreationEnabled: false
+    usageStatisticsEnabled: true
+  cps:
+    hideSandbox: false
+  gitHooks:
+    allowedOnAgents: false
+    allowedOnController: false
+  gitHostKeyVerificationConfiguration:
+    sshHostKeyVerificationStrategy: "knownHostsFileVerificationStrategy"
+  globalJobDslSecurityConfiguration:
+    useScriptSecurity: true
+  sSHD:
+    port: -1
+  scriptApproval:
+    approvedScriptHashes:
+    - "SHA512:9d80f344183c09c61e7bd2be384ea824cd857d2a03fd5c593a1975ccf9f0ad2c594aa9029e72f3187685956eaf9173b3c37fbe3b5a44204d8d38c62a2a03faa7"
+    forceSandbox: false
+unclassified:
+  artifactoryBuilder:
+    jfrogPipelinesServer:
+      bypassProxy: false
+      connectionRetries: 3
+      credentialsConfig:
+        overridingCredentials: false
+        username: "****"
+      timeout: 300
+    useCredentialsPlugin: false
+  buildDiscarders:
+    configuredBuildDiscarders:
+    - "jobBuildDiscarder"
+  enrichedSummaryConfig:
+    enrichedSummaryEnabled: false
+    httpClientDelayBetweenRetriesInSeconds: 1
+    httpClientMaxRetries: 3
+    httpClientTimeoutInSeconds: 1
+  fingerprints:
+    fingerprintCleanupDisabled: false
+    storage: "file"
+  gitHubConfiguration:
+    apiRateLimitChecker: ThrottleForNormalize
+  gitHubPluginConfig:
+    hookUrl: "http://jenkins-3:8080/github-webhook/"
+  injectionConfig:
+    allowUntrusted: false
+    checkForBuildAgentErrors: false
+    enabled: false
+    enforceUrl: false
+    injectCcudExtension: false
+    injectMavenExtension: false
+  junitTestResultStorage:
+    storage: "file"
+  location:
+    adminAddress: "address not configured yet <nobody@nowhere>"
+    url: "http://jenkins-3:8080/"
+  mailer:
+    charset: "UTF-8"
+    useSsl: false
+    useTls: false
+  mavenModuleSet:
+    localRepository: "default"
+  pollSCM:
+    pollingThreadCount: 10
+  scmGit:
+    addGitTagAction: false
+    allowSecondFetch: false
+    createAccountBasedOnEmail: false
+    disableGitToolChooser: false
+    hideCredentials: false
+    showEntireCommitSummaryInChanges: false
+    useExistingAccountWithSameEmail: false
+  slackNotifier:
+    botUser: false
+    sendAsText: false
+  sonarGlobalConfiguration:
+    buildWrapperEnabled: false
+tool:
+  git:
+    installations:
+    - home: "/usr/bin/git"
+      name: "Default"
+  maven:
+    installations:
+    - name: "maven3"
+      properties:
+      - installSource:
+          installers:
+          - maven:
+              id: "3.8.4"
+  mavenGlobalConfig:
+    globalSettingsProvider: "standard"
+    settingsProvider: "standard"
