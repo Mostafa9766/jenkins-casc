@@ -5,9 +5,6 @@ jenkins:
         - id: "gh_user"
           password: "p@ssw0rd"
 
-
-
-# Tool Configuration
 tool:
   git:
     installations:
@@ -15,34 +12,40 @@ tool:
         home: "/usr/bin/git"
   maven:
     installations:
-      - name: maven3
+      - name: "maven3"
         properties:
           - installSource:
               installers:
                 - maven:
                     id: "3.8.4"
 
-# Sample Job Configuration
 jobs:
-  - script: >
+  - script: |
       pipelineJob('example-pipeline-job') {
-      definition {
-        cps {
-          script("""
-            pipeline {
-                agent any
-                stages {
-                    stage('Hello') {
-                        steps {
-                            echo 'Hello, Jenkins!'
-                            sh 'date'
-                        }
-                    }
-                }
-            }
-          """.stripIndent())
-          sandbox(true)
-        }
+          definition {
+              cps {
+                  script('''
+                      pipeline {
+                          agent any
+                          stages {
+                              stage('Build') {
+                                  steps {
+                                      echo 'Building...'
+                                  }
+                              }
+                              stage('Test') {
+                                  steps {
+                                      echo 'Testing...'
+                                  }
+                              }
+                              stage('Deploy') {
+                                  steps {
+                                      echo 'Deploying...'
+                                  }
+                              }
+                          }
+                      }
+                  ''')
+              }
+          }
       }
-    }
-
