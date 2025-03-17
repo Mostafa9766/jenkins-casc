@@ -120,8 +120,7 @@ jenkins:
       githubWebUri: "https://github.com"
       oauthScopes: "read:org,user:email,repo"
   slaveAgentPort: 50000
-  systemMessage: "Welcome to M-PESA CI server. This Jenkins is managed by UNICORN\
-    \ team \n\n"
+  # systemMessage: "Welcome to M-PESA CI server. This Jenkins is managed by UNICORN\ \ team \n\n"
   updateCenter:
     sites:
     - id: "default"
