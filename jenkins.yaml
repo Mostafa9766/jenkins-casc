@@ -1,9 +1,9 @@
 jenkins:
-  securityRealm:
-    local:
-      users:
-        - id: "gh_user"
-          password: "p@ssw0rd"
+  # securityRealm:
+  #   local:
+  #     users:
+  #       - id: "gh_user"
+  #         password: "p@ssw0rd"
 
 tool:
   git:
